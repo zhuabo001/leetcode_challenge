@@ -1,0 +1,20 @@
+{
+  "editor.bracketPairColorization.independentColorPoolPerBracketType": true,
+  "editor.columnSelection": false,
+  "files.autoSave": "afterDelay",
+  "files.autoSaveDelay": 1000,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.formatOnType": false,
+  "editor.formatOnPaste": true,
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "prettier.requireConfig": false,
+  "prettier.useEditorConfig": false
+}
