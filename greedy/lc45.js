@@ -20,7 +20,10 @@ const canJumpII = (nums) => {
   let steps = 0; // 记录步数
   for (let i = 0; i < nums.length; i++) {
     nextDistance = Math.max(nextDistance, i + nums[i]); // 更新下一步覆盖最远距离下标
-    if (i === curDistance /**遇到当前覆盖最远距离下标 */) {
+    if (
+      i ===
+      curDistance /**遇到当前覆盖最远距离下标 步数就要加一，来增加覆盖距离 */
+    ) {
       curDistance = nextDistance; // 更新当前覆盖最远距离下标
       steps++; // 步数加一
       if (nextDistance >= nums.length - 1) break; // 下一步覆盖最远距离下标已经可以到达终点，结束循环，不用再更新steps
