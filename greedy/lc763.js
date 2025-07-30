@@ -11,7 +11,7 @@
 const partitionLabels = (s) => {
   const hash = {};
   for (let i = 0; i < s.length; i++) {
-    hash[s[i]] = i;
+    hash[s[i]] = i; // 统计每个字符最后出现的位置
   }
   let left = 0,
     right = 0;
