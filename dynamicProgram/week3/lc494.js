@@ -32,8 +32,9 @@
 // 物品4          1  5  10  10  5  1
 const targetSumDuallist = function (nums, target) {
   const sum = nums.reduce((pre, cur) => pre + cur);
-  if (sum < target || (sum + target) % 2 === 1) return 0;
+  if (sum < Math.abs(target) || (sum + target) % 2 === 1) return 0;
   const bagSize = Math.floor((sum + target) / 2);
+  if (bagSize < 0) return 0;
   // 确定dp[i][j]的含义：选取0-i的下标的nums[i]，能够凑满容量为j的背包有dp[i][j]种方法
   // 推导状态方程 dp[i][j] = dp[i - 1][j] + dp[i - 1][j - nums[i]], 以dp[2][2]举例， dp[2][2] = dp[1][2] + dp[1][1]; -> 不选物品2的情况下塞满容量为2的背包有1种方法，选物品2的情况下塞满容量为2的背包有2种方法(将物品的容量留出来， 背包剩下的容量被塞满的方法)
   // 若j < nums[i]， 则不能选物品i， 因此dp[i][j] = dp[i - 1][j]
@@ -64,4 +65,22 @@ const targetSumDuallist = function (nums, target) {
 };
 // 时间复杂度：O(n^2)
 // 空间复杂度：O(n^2)
-console.log(targetSumDuallist([1, 1, 1, 1, 1], 3));
+// console.log(targetSumDuallist([1, 1, 1, 1, 1], 3));
+
+const targetSumList = (nums, target) => {
+  const sum = nums.reduce((pre, cur) => pre + cur);
+  if (sum < Math.abs(target) || (sum + target) % 2 === 1) return 0;
+  const bagSize = Math.floor((sum + target) / 2);
+  if (bagSize < 0) return 0;
+  const dp = new Array(bagSize + 1).fill(0);
+  dp[0] = 1; // 放满容量为0的背包有一种方法
+  for (let i = 0; i < nums.length; i++) {
+    for (let j = bagSize; j >= nums[i]; j--) {
+      dp[j] = dp[j] + dp[j - nums[i]];
+    }
+  }
+  return dp[bagSize];
+};
+// 时间复杂度：O(n^2)
+// 空间复杂度：O(n)
+console.log(targetSumList([1, 1, 1, 1, 1], 3));
