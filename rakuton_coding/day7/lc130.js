@@ -21,7 +21,7 @@ const surroundedArea = (matrix) => {
   // 2. 遍历替换：遍历整个矩阵，未标记的0就是被围绕的，替换为x
   // 3. 恢复标记： 将标记的0恢复原状
   const dfs = (matrix, i, j) => {
-    if (i < 0 || i >= m || j < 0 || j >= n || matrix[i][j] !== '0') {
+    if (i < 0 || i >= m || j < 0 || j >= n || matrix[i][j] !== 'O') {
       return;
     }
     // 标记为临时字符，表示不会被围绕
@@ -36,35 +36,48 @@ const surroundedArea = (matrix) => {
   // 从边界开始dfs标记
   for (let i = 0; i < m; i++) {
     /**标记第一列和最后一列 */
-    if (matrix[i][0] === '0') {
+    if (matrix[i][0] === 'O') {
       dfs(matrix, i, 0);
     }
-    if (matrix[i][n - 1] === '0') {
+    if (matrix[i][n - 1] === 'O') {
       dfs(matrix, i, n - 1);
     }
   }
   for (let i = 0; i < n; i++) {
     /**标记第一行和最后一行 */
-    if (matrix[0][i] === '0') {
+    if (matrix[0][i] === 'O') {
       dfs(matrix, 0, i);
     }
-    if (matrix[m - 1][i] === '0') {
+    if (matrix[m - 1][i] === 'O') {
       dfs(matrix, m - 1, i);
     }
   }
   // 2. 遍历matrix，找到未被标记的0，替换为x， 找到被标记的0，恢复为0
   for (let i = 0; i < m; i++) {
     for (let j = 0; j < n; j++) {
-      if (matrix[i][j] === '0') {
-        matrix[i][j] = '0';
-      }
-      if (matrix[i][j] === '#') {
-        matrix[i][j] = '0';
+      if (matrix[i][j] === 'O') {
+        matrix[i][j] = 'X';
+      } else if (matrix[i][j] === '#') {
+        matrix[i][j] = 'O';
       }
     }
   }
-  return matrix;
 };
 // 时间复杂度：O(mn)，其中 m 和 n 分别为矩阵的行数和列数。
 // 空间复杂度：O(mn)，其中 m 和 n 分别为矩阵的行数和列数。主要取决于递归调用的栈空间，而栈空间的深度不会超过 m 和 n 中的较大值。
 // 找不被围绕的区域更简单（从边界开始
+// 测试用例
+const testBoard = [
+  ['X', 'X', 'X', 'X'],
+  ['X', 'O', 'O', 'X'],
+  ['X', 'X', 'O', 'X'],
+  ['X', 'O', 'X', 'X'],
+];
+
+console.log('原始矩阵:');
+console.table(testBoard);
+
+surroundedArea(testBoard);
+
+console.log('处理后矩阵:');
+console.table(testBoard);
