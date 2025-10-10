@@ -5,7 +5,7 @@ const permute = (nums) => {
   const res = [],
     path = [];
   const used = new Array(nums.length).fill(false);
-  const backTrack = (nums, used) => {
+  const backTrack = (nums) => {
     if (path.length === nums.length) {
       res.push([...path]);
       return;

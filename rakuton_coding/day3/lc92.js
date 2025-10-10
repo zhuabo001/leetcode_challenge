@@ -9,6 +9,7 @@ const revesedLinkedList = (head, left, right) => {
   for (let i = 0; i < left - 1; i++) {
     pre = pre.next; // pre指向待反转节点的前一个节点处
   }
+  // pre永远指向待反转区域的第一个节点left的前一个节点，在循环过程中不变
   let cur = pre.next; // 待反转区的第一个节点， 固定不动的，cur 始终是原始待反转区域的第一个节点
   for (let i = left; i < right; i++) {
     let nxt = cur.next;

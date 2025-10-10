@@ -4,8 +4,8 @@
 // 不允许修改 链表。
 const detectCycle = (head) => {
   if (!head || !head.next) return null;
-  let slow = 0,
-    fast = 0;
+  let slow = head,
+    fast = head;
   while (fast && fast.next) {
     slow = slow.next;
     fast = fast.next.next;

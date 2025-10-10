@@ -22,10 +22,8 @@ const rotate = (matrix) => {
       const temp = matrix[layer][offset];
       matrix[layer][offset] = matrix[len - offset - 1][layer]; // 推导出旋转前后相同元素的坐标变化为
       //   原坐标 (i, j) → 新坐标 (j, n-1-i)
-      matrix[len - 1 - offset][layer] =
-        matrix[len - layer - 1][len - 1 - offset];
-      matrix[len - layer - 1][len - offset - 1] =
-        matrix[offset][len - layer - 1];
+      matrix[len - 1 - offset][layer] = matrix[len - layer - 1][len - 1 - offset];
+      matrix[len - layer - 1][len - offset - 1] = matrix[offset][len - layer - 1];
       matrix[offset][len - layer - 1] = temp;
     }
   }

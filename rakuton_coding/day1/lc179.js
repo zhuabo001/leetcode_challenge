@@ -27,7 +27,7 @@ const largestNumber = (nums) => {
     const order1 = a + b; // a在前
     const order2 = b + a; // b在前
     // 如果 b+a > a+b，说明b应该排在a前面
-    return order2.localeCompare(order1);
+    return order2.localeCompare(order1); // a.localeCompare(b) 是升序，b.localeCompare(a) 是降序
   });
   // 处理前导零的情况: 此时已经经过排序的newNums，如果第一个元素是0，那么整个数组都是0
   if (newNums[0] === '0') return '0';
