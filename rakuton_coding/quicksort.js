@@ -25,3 +25,4 @@ const sortArray = (nums) => {
   quickSort(nums, 0, nums.length - 1);
   return nums;
 };
+console.log(sortArray([5, 2, 3, 1]));
