@@ -38,8 +38,8 @@ const maxProfit = function (prices) {
   if (!prices || prices.length === 0) return 0;
   const len = prices.length;
   const dp = new Array(len).fill(0).map(() => new Array(5).fill(0));
-  dp[0][0] = -prices[0];
-  dp[0][1] = 0;
+  dp[0][0] = 0;
+  dp[0][1] = -prices[0]; // 第一次买入股票
   dp[0][2] = 0;
   // 第二次买入依赖于第一次卖出的状态，其实相当于第0天第一次买入了，第一次卖出了，然后再买入一次（第二次买入），那么现在手头上没有现金，只要买入，现金就做相应的减少。
   // 所以第二次买入操作，初始化为：dp[0][3] = -prices[0];
