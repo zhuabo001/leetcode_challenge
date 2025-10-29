@@ -24,7 +24,7 @@ const longestContinuousIncreasingSubsequence = (nums) => {
       dp[i] = dp[i - 1] + 1;
     }
   }
-  return dp[len - 1];
+  return Math.max(...dp);
 };
 // 时间复杂度：O(n) - 单循环
 // 空间复杂度：O(n) - dp数组
