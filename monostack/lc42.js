@@ -19,7 +19,7 @@ const trap = (heights) => {
         const top = stack.pop(); // 这个当底部
         if (stack.length === 0) break;
         const left = stack[stack.length - 1]; // 这个当作左边的柱子，left top i 这三者形成一个容器
-        const curWidth = i - left + 1;
+        const curWidth = i - left - 1; // 是为了计算左右边界之间实际可盛水的列数，排除边界本身
         const curHeight = Math.min(heights[i], heights[left]) - heights[top];
         area += curWidth * curHeight;
       }
