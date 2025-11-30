@@ -22,16 +22,19 @@ const countPalindrome = (s) => {
   let count = 0;
   // 确定遍历顺序： 由于dp[i][j]依赖dp[i + 1][j - 1], 所以二维数组应该是从下到上，从左到右遍历
   // 举例推导dp数组
-  for (let i = len - 1; i >= 0; i--) {
-    for (let j = i; j < len; j++) {
-      if (s[i] === s[j]) {
-        if (i + 1 < len && j - 1 >= 0 && dp[i + 1][j - 1] /**状态转移方程1 */) {
-          dp[i][j] = true;
-          count++;
-        } else if (j - i <= 1 /**状态转移方程2、3 */) {
-          dp[i][j] = true;
-          count++;
-        }
+  for (let j = 0; j < len; j++) {
+    for (let i = 0; i <= j; i++) {
+      if (j == i) {
+        dp[i] = true;
+        count++;
+      } else if (j - i == 1 && s[i] == s[j]) {
+        dp[i] = true;
+        count++;
+      } else if (j - i > 1 && s[i] == s[j] && dp[i + 1]) {
+        dp[i] = true;
+        count++;
+      } else {
+        dp[i] = false;
       }
     }
   }
