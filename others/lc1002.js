@@ -10,6 +10,7 @@
 // 1 <= A.length <= 100
 // 1 <= A[i].length <= 100
 // A[i][j] 是小写字母
+// 思路： 先统计每个字符串中每个字符的出现次数，然后取所有字符串中每个字符的最小出现次数，最后根据最小出现次数构建结果数组
 const commonChars = (words) => {
   // 初始化一个长度为26的数组，存储每个字符的最小出现次数
   const minFreq = new Array(26).fill(Infinity);
