@@ -21,5 +21,7 @@ const sumOfNumbers = (root) => {
     path.pop(); //撤销操作必不可少
   };
   dfs(root);
-  return res.reduce((pre, cur) => pre + cur);
+  return res.reduce((pre, cur) => pre + cur, 0);
 };
+// 时间复杂度：O(n)，其中 n 是二叉树的节点数。对每个节点访问一次。
+// 空间复杂度：O(n)，其中 n 是二叉树的节点数。空间复杂度主要取决于递归调用的栈空间，递归栈的深度等于二叉树的高度，最坏情况下，二叉树的高度等于节点数，空间复杂度为 O(n)。
