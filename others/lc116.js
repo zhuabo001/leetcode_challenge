@@ -23,7 +23,7 @@ const connect = (root) => {
     for (let i = 0; i < len; i++) {
       const node = queue.shift();
       if (i < len - 1) {
-        node.next = queue[0];
+        node.next = queue[0]; // 连接当前节点的下一个右侧节点
       }
       if (node.left) queue.push(node.left);
       if (node.right) queue.push(node.right);
