@@ -29,7 +29,6 @@ const countOfLongestIncreasingSubSequence = (nums) => {
    */
   const dp = new Array(nums.length).fill(1);
   const count = new Array(nums.length).fill(1);
-  let maxLen = 0; // 最长递增子序列的长度
   let result = 0;
   for (let i = 0; i < nums.length; i++) {
     for (let j = 0; j < i; j++) {
@@ -41,12 +40,12 @@ const countOfLongestIncreasingSubSequence = (nums) => {
         }
         dp[i] = Math.max(dp[j] + 1, dp[i]);
       }
-      if (dp[i] > maxLen) maxLen = dp[i];
     }
   }
 
   //4. 确定dp数组遍历方向 —— 从前向后
   //5. 举例推导dp数组
+  let maxLen = Math.max(...dp); // 最长递增子序列的长度
   for (let i = 0; i < nums.length; i++) {
     if (maxLen === dp[i]) {
       // 当找到了对应最大长度的下标i时，结果记录count中对应下标的值
