@@ -55,3 +55,10 @@ const ladderLength = (beginWord, endWord, wordList) => {
   }
   return 0;
 };
+// 时间复杂度 O(N × M²) - N = wordList 中单词的数量， M = 每个单词的长度
+// 空间复杂度 O(N × M) -
+// wordSet：存储 N 个单词，每个长度 M → O(N × M)，
+// isitedMap：最多存储 N 个单词 → O(N × M)，
+// queue：最坏情况存储 N 个单词 → O(N × M)
+// 临时变量：O(1)
+// O(N × M) + O(N × M) + O(N × M) = O(N × M)
