@@ -18,6 +18,14 @@
 // 数学定理： 定理：在无权图中，BFS第一次访问到目标节点时，找到的路径**一定**是**最短路径**。
 
 const ladderLength = (beginWord, endWord, wordList) => {
+  // 边界情况检查
+  if (!beginWord || !endWord || !wordList || wordList.length === 0) {
+    return 0;
+  }
+  if (beginWord === endWord) {
+    return 1;
+  }
+
   // 1. 图中的线是如何连在一起的
   // 2. 起点和终点的最短路径
   // 首先题目中并没有给出点与点之间的连线，而是要我们自己去连，条件是字符只能差一个，
@@ -55,10 +63,13 @@ const ladderLength = (beginWord, endWord, wordList) => {
   }
   return 0;
 };
-// 时间复杂度 O(N × M²) - N = wordList 中单词的数量， M = 每个单词的长度
+// 时间复杂度 O(N × M) - N = wordList 中单词的数量， M = 每个单词的长度
 // 空间复杂度 O(N × M) -
 // wordSet：存储 N 个单词，每个长度 M → O(N × M)，
-// isitedMap：最多存储 N 个单词 → O(N × M)，
+// visitedMap：最多存储 N 个单词 → O(N × M)，
 // queue：最坏情况存储 N 个单词 → O(N × M)
 // 临时变量：O(1)
 // O(N × M) + O(N × M) + O(N × M) = O(N × M)
+
+// 导出函数供 LeetCode 平台调用
+module.exports = ladderLength;
