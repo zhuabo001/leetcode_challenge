@@ -16,7 +16,9 @@ const findRedundantConnection = (edges) => {
    *
    */
   const n = edges.length;
-  const parent = new Array(n + 1).fill(0).map((_, i) => i);
+  const parent = new Array(n + 1)
+    .fill(0)
+    .map((_, i) => i /**将每个位置的值设为其索引 i */);
 
   const find = (x) => {
     if (parent[x] !== x) {
