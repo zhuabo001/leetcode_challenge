@@ -159,3 +159,12 @@ const findRedundantDirectionConnected = (edges) => {
 
   return getRemoveEdge(edges);
 };
+
+// 时间复杂度 —— O(n)
+// 1. O(n) + 2 × O(n) = O(n)
+// 2. ：O(n) + O(n) = O(n)
+// 空间复杂度 —— O(n)
+// parent数组：O(n)
+// rank数组：O(n)
+// inDegree数组：O(n)
+// 临时变量：O(1)
