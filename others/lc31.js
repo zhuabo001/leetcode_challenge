@@ -49,5 +49,5 @@ const nextLargerOrchestration = (nums) => {
   }
   return nums;
 };
-// 时间复杂度
-// 空间复杂度
+// 时间复杂度: O(n) - 只需遍历常数次（找断点 + 找替换者 + 反转）
+// 空间复杂度: O(1) - 只使用了常数个额外变量
