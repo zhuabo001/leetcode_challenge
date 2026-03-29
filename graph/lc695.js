@@ -50,3 +50,47 @@ const maxAreaOfIsland_DFS = (grid) => {
 };
 // dfs时间复杂度：O(m * n)，每个节点最多访问一次
 // dfs空间复杂度：O(m * n)，visited 数组 + 递归栈最坏为 O(m * n)
+
+const maxAreaOfIsland_BFS = (grid) => {
+  const m = grid.length,
+    n = grid[0].length;
+  let maxArea = 0;
+  let count;
+  const directions = [
+    [1, 0],
+    [-1, 0],
+    [0, 1],
+    [0, -1],
+  ];
+  const visited = new Array(m).fill().map(() => new Array(n).fill(false));
+  const bfs = (grid, visited, x, y) => {
+    const queue = [[x, y]];
+    visited[x][y] = true;
+    while (queue.length) {
+      const [curX, curY] = queue.shift();
+      count++;
+      for (let i = 0; i < 4; i++) {
+        let newX = curX + directions[i][0];
+        let newY = curY + directions[i][1];
+        if (newX < 0 || newX >= m || newY < 0 || newY >= n) continue;
+        if (!visited[newX][newY] && grid[newX][newY] === 1) {
+          queue.push([newX, newY]);
+          // 更新visited
+          visited[newX][newY] = true;
+        }
+      }
+    }
+  };
+  for (let i = 0; i < m; i++) {
+    for (let j = 0; j < n; j++) {
+      if (!visited[i][j] && grid[i][j] === 1) {
+        count = 0;
+        bfs(grid, visited, i, j);
+        maxArea = Math.max(maxArea, count);
+      }
+    }
+  }
+  return maxArea;
+};
+// bfs时间复杂度：O(m * n)，每个节点最多访问一次
+// bfs空间复杂度：O(m * n)，visited 数组 + 队列最坏为 O(m * n)
