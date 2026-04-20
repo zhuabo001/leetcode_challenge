@@ -84,6 +84,7 @@ const pacificAtlanticWithBFS = function (grids) {
   const atlantic = new Array(m).fill().map(() => new Array(n).fill(false));
 
   const bfs = (x, y, visited) => {
+    if (visited[x][y] === true) return;
     const queue = [[x, y]];
     visited[x][y] = true;
     while (queue.length) {
