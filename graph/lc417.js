@@ -13,8 +13,8 @@ const pacificAtlantic = function (grids) {
     [-1, 0],
   ];
   // 初始化两个访问矩阵，分别表示从两种边界是否能逆向流动到(i，j)
-  const pacific = new Array(m).fill(0).map(() => new Array(n).fill(0));
-  const atlantic = new Array(m).fill(0).map(() => new Array(n).fill(0));
+  const pacific = new Array(m).fill(0).map(() => new Array(n).fill(false));
+  const atlantic = new Array(m).fill(0).map(() => new Array(n).fill(false));
 
   const dfs = (x, y, visited) => {
     if (visited[x][y]) {
@@ -70,3 +70,64 @@ const pacificAtlantic = function (grids) {
 
 // 时间复杂度: O(m * n)，其中 m 和 n 分别是矩阵的行数和列数。在最坏情况下，每个单元格最多被太平洋和大西洋的 DFS 各访问一次。
 // 空间复杂度: O(m * n)，主要包括两个大小为 m * n 的访问矩阵 pacific 和 atlantic，以及 DFS 递归调用栈的最大深度（最坏情况下为 m * n）。
+
+const pacificAtlanticWithBFS = function (grids) {
+  const m = grids.length,
+    n = grids[0].length;
+  const directions = [
+    [-1, 0],
+    [1, 0],
+    [0, -1],
+    [0, 1],
+  ];
+  const pacific = new Array(m).fill().map(() => new Array(n).fill(false));
+  const atlantic = new Array(m).fill().map(() => new Array(n).fill(false));
+
+  const bfs = (x, y, visited) => {
+    const queue = [[x, y]];
+    visited[x][y] = true;
+    while (queue.length) {
+      const [curX, curY] = queue.shift();
+      for (const [dx, dy] of directions) {
+        let newX = curX + dx,
+          newY = curY + dy;
+        if (
+          newX < 0 ||
+          newX >= m ||
+          newY < 0 ||
+          newY >= n ||
+          grids[newX][newY] < grids[curX][curY]
+        ) {
+          continue;
+        }
+        if (!visited[newX][newY]) {
+          queue.push([newX, newY]);
+          visited[newX][newY] = true;
+        }
+      }
+    }
+  };
+
+  for (let i = 0; i < m; i++) {
+    bfs(i, 0, pacific);
+    bfs(i, n - 1, atlantic);
+  }
+
+  for (let j = 0; j < n; j++) {
+    bfs(0, j, pacific);
+    bfs(m - 1, j, atlantic);
+  }
+
+  const res = [];
+  for (let i = 0; i < m; i++) {
+    for (let j = 0; j < n; j++) {
+      if (pacific[i][j] && atlantic[i][j]) {
+        res.push([i, j]);
+      }
+    }
+  }
+  return res;
+};
+
+// 时间复杂度 O(n * m)
+// 空间复杂度 O(n * m)
