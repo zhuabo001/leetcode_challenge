@@ -109,3 +109,6 @@ const perimeterOfIslandWithDFS = (grid) => {
   }
   return perimeter;
 };
+
+// 时间复杂度 O(m * n)
+// 空间复杂度 O(m * n)
