@@ -112,3 +112,56 @@ const perimeterOfIslandWithDFS = (grid) => {
 
 // 时间复杂度 O(m * n)
 // 空间复杂度 O(m * n)
+
+const perimeterOfIslandWithBFS = (grid) => {
+  const m = grid.length,
+    n = grid[0].length;
+  const directions = [
+    [-1, 0],
+    [1, 0],
+    [0, -1],
+    [0, 1],
+  ];
+  const visited = new Array(m).fill().map(() => new Array(n).fill(false));
+  let perimeter = 0;
+  const queue = [];
+
+  const bfs = (startX, startY) => {
+    queue.push([startX, startY]);
+    visited[startX][startY] = true;
+
+    while (queue.length) {
+      const [x, y] = queue.shift();
+
+      for (const [dx, dy] of directions) {
+        const newX = x + dx;
+        const newY = y + dy;
+
+        if (
+          newX < 0 ||
+          newX >= m ||
+          newY < 0 ||
+          newY >= n ||
+          grid[newX][newY] === 0
+        ) {
+          perimeter++;
+        } else if (!visited[newX][newY]) {
+          visited[newX][newY] = true;
+          queue.push([newX, newY]);
+        }
+      }
+    }
+  };
+
+  for (let i = 0; i < m; i++) {
+    for (let j = 0; j < n; j++) {
+      if (grid[i][j] && !visited[i][j]) {
+        bfs(i, j);
+      }
+    }
+  }
+  return perimeter;
+};
+
+// 时间复杂度 O(m * n)
+// 空间复杂度 O(m * n)
