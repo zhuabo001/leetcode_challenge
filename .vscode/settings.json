@@ -16,5 +16,8 @@
     "editor.formatOnSave": true
   },
   "prettier.requireConfig": false,
-  "prettier.useEditorConfig": false
+  "prettier.useEditorConfig": false,
+  "js/ts.inlayHints.functionLikeReturnTypes.enabled": true,
+  "js/ts.inlayHints.propertyDeclarationTypes.enabled": true,
+  "js/ts.inlayHints.variableTypes.enabled": true
 }
