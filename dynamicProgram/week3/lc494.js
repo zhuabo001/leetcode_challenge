@@ -1,0 +1,86 @@
+// 494. 目标和
+// 给你一个整数数组 nums 和一个整数 target 。
+// 向数组中的每个整数前添加 '+' 或 '-' ，然后串联起所有整数，可以构造一个 表达式 ：
+// 例如，nums = [2, 1] ，可以在 2 之前添加 '+' ，在 1 之前添加 '-' ，然后串联起来得到表达式 "+2-1" 。
+// 返回可以通过上述方法构造的、运算结果等于 target 的不同 表达式 的数目。
+// 示例 1：
+// 输入：nums = [1,1,1,1,1], target = 3
+// 输出：5
+// 解释：一共有 5 种方法让最终目标和为 3 。
+// -1 + 1 + 1 + 1 + 1 = 3
+// +1 - 1 + 1 + 1 + 1 = 3
+// +1 + 1 - 1 + 1 + 1 = 3
+// +1 + 1 + 1 - 1 + 1 = 3
+// +1 + 1 + 1 + 1 - 1 = 3
+// 因为本题允许你使用 + 和 -两个运算符去计算达到target， 所以一定有 分组1 - 分组2 = target
+// 又因为分组1 + 分组2 = 整个数组的和sum， 所以我们可以得到 分组1 - (sum - 分组1) = target -> 分组1 = (target + sum) / 2;
+// sum和target都是固定的，那么此时问题就是在nums找到一个和为分组1的子数组(用nums的元素装满容量为 (sum + target) / 2的背包有多少种方法)
+// 按照示例中的nums进行假设推理：
+// 选取物品0， 塞满容量为0的背包方法为1 —— 什么都不放
+// 选取物品0， 塞满容量为1的背包方法为1 —— 只放物品0
+// 选取物品0， 塞满容量为2的背包方法为0 —— 只放物品0不够，因此后面的大容量其实方法数量都是0
+// 选取物品1， 塞满量为0的背包方法为1 —— 什么都不放
+// 选取物品1， 塞满量为1的背包方法为2 —— 放物品0或者物品1
+// 选取物品1和物品0， 塞满容量为2的背包方法为1 —— 放物品0和物品1
+// 选取物品0和1， 塞满容量为3的背包方法为0 —— 放物品0和物品1都不够
+// ...以此类推， 我们可以得到如下的表格：
+// 物品 \ 背包容量  0  1  2  3  4
+// 物品0          1  1  0  0  0  0
+// 物品1          1  2  1  1  0  0
+// 物品2          1  3  3  1  0  0
+// 物品3          1  4  6  4  1  0
+// 物品4          1  5  10  10  5  1
+const targetSumDuallist = function (nums, target) {
+  const sum = nums.reduce((pre, cur) => pre + cur);
+  if (sum < Math.abs(target) || (sum + target) % 2 === 1) return 0;
+  const bagSize = Math.floor((sum + target) / 2);
+  if (bagSize < 0) return 0;
+  // 确定dp[i][j]的含义：选取0-i的下标的nums[i]，能够凑满容量为j的背包有dp[i][j]种方法
+  // 推导状态方程 dp[i][j] = dp[i - 1][j] + dp[i - 1][j - nums[i]], 以dp[2][2]举例， dp[2][2] = dp[1][2] + dp[1][1]; -> 不选物品2的情况下塞满容量为2的背包有1种方法，选物品2的情况下塞满容量为2的背包有2种方法(将物品的容量留出来， 背包剩下的容量被塞满的方法)
+  // 若j < nums[i]， 则不能选物品i， 因此dp[i][j] = dp[i - 1][j]
+  // 初始化dp数组
+  const dp = new Array(nums.length)
+    .fill(0)
+    .map(() => new Array(bagSize + 1).fill(0));
+  let zeroCount = 0;
+  for (let i = 0; i < nums.length; i++) {
+    if (nums[i] === 0) zeroCount++; // 若物品本身为0， 计数
+    dp[i][0] = 2 ** zeroCount; // 假设物品0和物品1为0， 塞满容量为0的背包有4种方法
+  }
+  for (let j = 1; j <= bagSize; j++) {
+    dp[0][j] = j === nums[0] ? 1 : 0; // 塞满的情况只能是物品的体积和容量相等
+  }
+  // 确定遍历顺序
+  // 举例推导dp数组
+  for (let i = 1; i < nums.length; i++) {
+    for (let j = 1; j <= bagSize; j++) {
+      if (j < nums[i]) {
+        dp[i][j] = dp[i - 1][j];
+      } else {
+        dp[i][j] = dp[i - 1][j] + dp[i - 1][j - nums[i]];
+      }
+    }
+  }
+  return dp[nums.length - 1][bagSize];
+};
+// 时间复杂度：O(n^2)
+// 空间复杂度：O(n^2)
+// console.log(targetSumDuallist([1, 1, 1, 1, 1], 3));
+
+const targetSumList = (nums, target) => {
+  const sum = nums.reduce((pre, cur) => pre + cur);
+  if (sum < Math.abs(target) || (sum + target) % 2 === 1) return 0;
+  const bagSize = Math.floor((sum + target) / 2);
+  if (bagSize < 0) return 0;
+  const dp = new Array(bagSize + 1).fill(0);
+  dp[0] = 1; // 放满容量为0的背包有一种方法
+  for (let i = 0; i < nums.length; i++) {
+    for (let j = bagSize; j >= nums[i]; j--) {
+      dp[j] = dp[j] + dp[j - nums[i]];
+    }
+  }
+  return dp[bagSize];
+};
+// 时间复杂度：O(n^2)
+// 空间复杂度：O(n)
+console.log(targetSumList([1, 1, 1, 1, 1], 3));

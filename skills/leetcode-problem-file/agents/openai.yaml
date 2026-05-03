@@ -1,0 +1,4 @@
+interface:
+  display_name: "LeetCode 题面文件创建"
+  short_description: "按 lc 编号创建仅含题面描述、示例与提示的 JS 文件"
+  default_prompt: "在指定目录创建 lc<number>.js，并填入对应 LeetCode 题目描述与示例，不实现题解。"
