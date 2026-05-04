@@ -106,3 +106,32 @@ const stringTransfer = (
   return res;
 };
 
+
+/**
+ * 【时空复杂度分析】
+ *
+ * 设 N = strList 中字符串的数量，L = 字符串长度。
+ *
+ * 【时间复杂度：O(N × L²)】
+ * 1. 构建 patternMap：
+ *    遍历 N 个单词，每个单词生成 L 个 pattern，每个 pattern 生成耗时 O(L)。
+ *    总耗时 O(N × L²)。
+ *
+ * 2. BFS 搜索：
+ *    最坏情况下访问全部 N 个单词。
+ *    对每个单词，先与 endStr 逐字符比较，耗时 O(L)。
+ *    再生成 L 个 pattern（每个 O(L)），并在 patternMap 中查找邻居。
+ *    因此 BFS 阶段总耗时也为 O(N × L²)。
+ *
+ *    综上，整体时间复杂度为 O(N × L²)。
+ *
+ * 【空间复杂度：O(N × L)】
+ * 1. patternMap：
+ *    每个单词贡献 L 个 pattern，共 N × L 个键；每个单词出现在 L 个列表中。
+ *    总空间 O(N × L)。
+ *
+ * 2. visited 集合 + BFS 队列：
+ *    最坏存储全部 N 个单词，空间 O(N × L)。
+ *
+ *    综上，整体空间复杂度为 O(N × L)。
+ */
