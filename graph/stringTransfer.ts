@@ -68,6 +68,7 @@ const stringTransfer = (
   endStr: string,
   strList: string[]
 ): number => {
+  if (beginStr === endStr) return 1;
   const patternMap = buildPatternMap(strList);
   const visited = new Set<string>();
   // bfs找step
@@ -89,7 +90,7 @@ const stringTransfer = (
         for (let j = 0; j < cur.length; j++) {
           const curPattern = cur.slice(0, j) + '*' + cur.slice(j + 1);
           for (const neighbor of patternMap.get(curPattern) ?? []) {
-            if (neighbor === endStr) return step + 1;
+            // if (neighbor === endStr) return step + 1;
             if (!visited.has(neighbor)) {
               visited.add(neighbor);
               queue.push(neighbor);
@@ -104,3 +105,4 @@ const stringTransfer = (
   let res = bfs(beginStr);
   return res;
 };
+
