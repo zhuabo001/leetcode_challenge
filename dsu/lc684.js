@@ -11,9 +11,10 @@ const findRedundantConnection = (edges) => {
 
   // 解题思路
   /**
-   *
-   *
-   *
+   * 一条边 [u, v] 冗余当且仅当：在处理这条边之前，u 和 v 已经连通了（即已经属于同一个集合）
+   * 树的特点是 N 个节点，N-1 条边，且连通无环
+   * 如果在加这条边之前 u 和 v 就已经连通，说明它们之间已经存在一条路径
+   * 再连一条边，就会形成环
    */
   const n = edges.length;
   const parent = new Array(n + 1)
