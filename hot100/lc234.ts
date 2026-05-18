@@ -1,8 +1,5 @@
 // 回文链表
-interface ListNode {
-  value: number;
-  next: ListNode | null;
-}
+import { ListNode } from './type';
 const palindromeList = (head: ListNode): boolean => {
   let fast = head,
     slow = head;

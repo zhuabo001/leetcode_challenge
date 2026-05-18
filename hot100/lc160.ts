@@ -1,12 +1,5 @@
-interface LinkedlistNode {
-  value: number;
-  next: LinkedlistNode | null;
-}
-
-const getIntersectedNodeList = (
-  headA: LinkedlistNode,
-  headB: LinkedlistNode
-): LinkedlistNode => {
+import { ListNode } from './type';
+const getIntersectedNodeList = (headA: ListNode, headB: ListNode): ListNode => {
   let curA = headA,
     curB = headB;
   while (curA !== curB) {
@@ -14,8 +7,8 @@ const getIntersectedNodeList = (
     // - A 走完 A 链 → 跳到 B 链起点
     // - B 走完 B 链 → 跳到 A 链起点
     // - 两人走过的总路程相等，在相交点相遇
-    curA = (curA ? curA.next : headB) as LinkedlistNode;
-    curB = (curB ? curB.next : headA) as LinkedlistNode;
+    curA = (curA ? curA.next : headB) as ListNode;
+    curB = (curB ? curB.next : headA) as ListNode;
   }
   return curA;
 };
