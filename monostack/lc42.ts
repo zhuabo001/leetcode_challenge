@@ -4,24 +4,17 @@ function trap2(heights: number[]): number {
   let area = 0;
   const stack = [];
   for (let i = 0; i < heights.length; i++) {
-    if (heights[i] < heights[stack[stack.length - 1]]) {
-      stack.push(i);
-    } else if (heights[i] === heights[stack[stack.length - 1]]) {
-      stack.pop();
-      stack.push(i); // 高度相同时选更远的那个
-    } else {
-      while (stack.length && heights[i] > heights[stack[stack.length - 1]]) {
-        const bottom = stack.pop() as number; // 找出低洼高度
-        if (stack.length === 0) break;
-        const left = stack[stack.length - 1];
-        const width = i - left - 1;
-        area +=
-          width *
-          (Math.min(heights[i], heights[left]) /** 更低的和低洼处的高度差 */ -
-            heights[bottom]);
-      }
-      stack.push(i);
+    while (stack.length && heights[i] > heights[stack[stack.length - 1]]) {
+      const bottom = stack.pop() as number; // 找出低洼高度
+      if (stack.length === 0) break;
+      const left = stack[stack.length - 1];
+      const width = i - left - 1;
+      area +=
+        width *
+        (Math.min(heights[i], heights[left]) /** 更低的和低洼处的高度差 */ -
+          heights[bottom]);
     }
+    stack.push(i);
   }
   return area;
 }
