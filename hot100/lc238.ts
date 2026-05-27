@@ -6,12 +6,12 @@ const productExceptSelf = (nums: number[]) => {
   let prefix = 1,
     suffix = 1;
   for (let i = 0; i < nums.length; i++) {
-    prefix = prefix * nums[i - 1];
     ans[i] = prefix;
+    prefix *= nums[i];
   }
   for (let j = nums.length - 1; j >= 0; j--) {
-    suffix = suffix * nums[j + 1];
-    ans[j] = ans[j] * suffix;
+    ans[j] *= suffix;
+    suffix *= nums[j];
   }
   return ans;
 };
