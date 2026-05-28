@@ -1,7 +1,7 @@
 // 乘积最大的子数组
 const maxProduct = (nums: number[]) => {
-  const maxDp = new Array(nums.length + 1).fill(0),
-    minDp = new Array(nums.length + 1).fill(0);
+  const maxDp = new Array(nums.length + 1),
+    minDp = new Array(nums.length + 1);
   let ans = -Infinity;
   maxDp[0] = 1;
   minDp[0] = 1;
