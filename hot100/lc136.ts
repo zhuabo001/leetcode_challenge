@@ -19,3 +19,15 @@ const findNumOnlyOnce = (nums: number[]) => {
 };
 // 时间复杂度 O(N)
 // 空间复杂度 O(N)
+
+// 异或解法（O(1) 空间）
+// a ^ a = 0，a ^ 0 = a，成对数字互相抵消
+const singleNumber = (nums: number[]): number => {
+  let ans = 0;
+  for (const num of nums) {
+    ans ^= num;
+  }
+  return ans;
+};
+// 时间复杂度 O(n)
+// 空间复杂度 O(1)
