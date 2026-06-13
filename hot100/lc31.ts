@@ -30,3 +30,35 @@ const nextArrange = (nums: number[]) => {
 };
 // 时间复杂度 O(n)
 // 空间复杂度 O(1)
+
+const rerange = (nums: number[]) => {
+  const len = nums.length;
+  let indexI = -1;
+  for (let i = len - 2; i >= 0; i--) {
+    // 找到第一个位置，该位置后一个数字比当前这个位置的数字大，记录这个位置
+    if (nums[i + 1] > nums[i]) {
+      indexI = i;
+      break;
+    }
+  }
+  if (indexI === -1) {
+    return nums.reverse();
+  }
+  // 在indexI后面的区域里找到第一个比indexI所在位置大的数字，并交换两者的位置
+  for (let j = len - 1; j > indexI; j--) {
+    if (nums[j] > nums[indexI]) {
+      [nums[indexI], nums[j]] = [nums[j], nums[indexI]];
+      break;
+    }
+  }
+
+  // 将此时indexI后面的数字进行升序排列构造最小字典序
+  let left = indexI + 1,
+    right = len - 1;
+  while (left < right) {
+    [nums[left], nums[right]] = [nums[right], nums[left]];
+    left++;
+    right--;
+  }
+  return nums;
+};
