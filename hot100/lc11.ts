@@ -8,6 +8,7 @@ const maxWater = (heights: number[]): number => {
     if (tempArea > area) {
       area = tempArea;
     }
+    // 核心： 移动长板不可能有机会使得面积更大，只有移动短的那一边才有机会
     if (heights[left] > heights[right]) {
       right--;
     } else {
