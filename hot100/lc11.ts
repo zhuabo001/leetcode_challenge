@@ -19,3 +19,22 @@ const maxWater = (heights: number[]): number => {
 };
 // 时间复杂度 O(N)
 // 空间复杂度 O(1)
+
+const maxWaterII = (heights: number[]): number => {
+  let area: number = 0;
+  let left: number = 0,
+    right: number = heights.length - 1;
+  while (left < right) {
+    const tempArea: number =
+      Math.min(heights[left], heights[right]) * (right - left);
+    if (tempArea > area) {
+      area = tempArea;
+    }
+    if (heights[left] > heights[right]) {
+      right--;
+    } else {
+      left++;
+    }
+  }
+  return area;
+};
