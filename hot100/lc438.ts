@@ -47,7 +47,8 @@ const finAnagrams = (s: string, p: string): number[] => {
     // // 把离开窗口的字符加回 count
     // // 如果 count[char] === 1，说明刚好从 0 变成不匹配，diff 加 1
 
-    // 修复：先收缩再检查。否则窗口膨胀到 len+1 时，收缩后变成 len 的窗口没有被检查到
+    // 修复：先收缩再检查。
+    // 否则窗口膨胀到 len+1 时，收缩后变成 len 的窗口没有被检查到
     // 窗口超出 p.length 时，先移动左指针收缩
     if (right - left + 1 > len) {
       countP[s[left].charCodeAt(0) - 97]++;
