@@ -1,5 +1,5 @@
 // 二叉树展开为链表
-import { TreeNode } from './type';
+import { TreeNode } from './tree';
 const flatten = (root: TreeNode) => {
   if (!root) return;
   flatten(root.left as TreeNode);

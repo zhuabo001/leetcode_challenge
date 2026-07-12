@@ -1,8 +1,7 @@
 // 从前序遍历和中序遍历的结果构造一个二叉树
-import { TreeNode } from './type';
+import { TreeNode } from './tree';
 const buildTree = (preorder: any, inorder: any) => {
   if (preorder.length === 0) return null;
-  // @ts-ignore
   const root = new TreeNode(preorder[0]);
   let index = inorder.indexOf(preorder[0]);
   // 中序中index为root的下标，那么也就是说[0, index - 1]为左子树，数量正好为index(0到index-1)有index个数字
